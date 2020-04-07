@@ -121,6 +121,12 @@ if __name__ == '__main__':
     """ vocab / character number configuration """
     if opt.sensitive:
         opt.character = string.printable[:-6]  # same with ASTER setting (use 94 char).
+    import os
+    opt.character = []
+    with open(os.path.join('data/training', 'kr_labels.txt'), 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            opt.character.append(line.split()[1])
 
     cudnn.benchmark = True
     cudnn.deterministic = True
